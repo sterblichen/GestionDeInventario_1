@@ -1,21 +1,17 @@
-const {
-  AddUserController,
-  LoginUser,
-} = require("./controllers/Controller");
+require("dotenv").config();
+const { routeAuth } = require("./routes/route-auth");
 const cors = require("cors");
 const express = require("express");
+
 const app = express();
 
-const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.post("/api/v1/Login/RegisterUser", AddUserController);
+app.use("/api/v1/auth", routeAuth);
 
-app.post("/api/v1/Login", LoginUser);
-
-app.listen(port, () => {
+app.listen(process.env.SV_PORT, () => {
   console.log(
-    `Servidor levantado en: http://localhost:${port} 👾 🤖`,
+    `Servidor levantado en el puerto: http://localhost:${[process.env.SV_PORT]}`,
   );
 });

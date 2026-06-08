@@ -1,20 +1,20 @@
-const mysql2 = require("mysql2/promise");
+const mysql = require("mysql2/promise");
+require("dotenv").config();
 
-const pool = mysql2.createPool({
-  host: "localhost",
-  user: "root",
-  password: "213400967Fm.",
-  database: "gestion_de_inventario",
-  timezone: "z",
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  password: process.env.DB_PASSWORD,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
 });
 
 const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
-    console.log("Conexion exitosa 👌 👌");
+    console.log("Conexion exitosa a la base de datos");
     connection.release();
   } catch (error) {
-    console.log("Conexion fallida 😭 😓 ", error.message);
+    console.log("Error al conectar a la base de datos");
   }
 };
 testConnection();
